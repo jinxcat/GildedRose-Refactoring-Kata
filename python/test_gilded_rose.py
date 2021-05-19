@@ -185,8 +185,23 @@ class GildedRoseTest(unittest.TestCase):
             self.assertEqual(item.sell_in, expectation['sell_in'])
 
     def test_backstage_passes_to_zero_when_expired(self):
-        self.skipTest("not implemented yet")
-        pass
+        # set of items tested
+        items = [
+            Item(name="Backstage passes to a TAFKAL80ETC concert", sell_in=1, quality=20),
+            Item(name="Backstage passes to a TAFKAL80ETC concert", sell_in=0, quality=0),
+        ]
+        # expected item set output
+        expected = [
+            {'sell_in': 0, 'quality': 23},
+            {'sell_in': -1, 'quality': 0},
+        ]
+
+        gilded_rose = GildedRose(items)
+        gilded_rose.update_quality()
+        for index, expectation in enumerate(expected):
+            item = items[index]
+            self.assertEqual(item.quality, expectation['quality'])
+            self.assertEqual(item.sell_in, expectation['sell_in'])
 
     def test_conjured_items_decrease_twice_as_fast_as_normal(self):
         self.skipTest("not implemented yet")
