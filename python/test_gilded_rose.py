@@ -22,6 +22,16 @@ class GildedRoseTest(unittest.TestCase):
         for i in range(len(items)):
             self.assertEquals(expected_items[i].name, items[i].name)
 
+    def test_skeleton(self):
+        # set of items tested
+        items = []
+        # expected item set output
+        expected_items = []
+
+        gilded_rose = GildedRose(items)
+        gilded_rose.update_quality()
+        self.assertEquals(items, expected_items)
+
         
 if __name__ == '__main__':
     unittest.main()
