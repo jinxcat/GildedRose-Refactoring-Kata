@@ -44,7 +44,10 @@ class Item:
         self.quality = quality
 
     def decrease_quality(self, by_value=1):
-        self.quality = self.quality - 1
+        # if name starts with "Conjured", double the decrease rate
+        if self.name.startswith("Conjured"):
+            by_value *= 2
+        self.quality = self.quality - by_value
 
     def __repr__(self):
         return "%s, %s, %s" % (self.name, self.sell_in, self.quality)

@@ -207,20 +207,22 @@ class GildedRoseTest(unittest.TestCase):
         # set of items tested
         items = [
             Item(name="Mana Cake", sell_in=10, quality=20),
+            Item(name="Mana Cake", sell_in=0, quality=20),
             Item(name="Conjured Mana Cake", sell_in=10, quality=20),
             Item(name="Conjured Mana Cake", sell_in=1, quality=20),
             Item(name="Conjured Mana Cake", sell_in=0, quality=20),
             Item(name="Conjured Mana Cake", sell_in=-5, quality=20),
-            Item(name="Conjured Mana Cake", sell_in=-5, quality=-10),
+            Item(name="Conjured Mana Cake", sell_in=-5, quality=0),
         ]
         # expected item set output
         expected = [
-            {'sell_in': 9, 'quality': 19},
+            {'sell_in': 9, 'quality': 19},  # non-conjured
+            {'sell_in': -1, 'quality': 18},  # non-conjured
             {'sell_in': 9, 'quality': 18},
             {'sell_in': 0, 'quality': 18},
-            {'sell_in': -1, 'quality': 18},
-            {'sell_in': -6, 'quality': 18},
-            {'sell_in': -6, 'quality': -12},
+            {'sell_in': -1, 'quality': 16},
+            {'sell_in': -6, 'quality': 16},
+            {'sell_in': -6, 'quality': 0},
         ]
 
         gilded_rose = GildedRose(items)
