@@ -22,15 +22,24 @@ class GildedRoseTest(unittest.TestCase):
         for i in range(len(items)):
             self.assertEquals(expected_items[i].name, items[i].name)
 
-    def test_skeleton(self):
+    def test_quality_drops_twice_as_fast_for_expired_items(self):
         # set of items tested
-        items = []
+        items = [
+            Item("+5 Dexterity Vest", 10, 20),
+            Item("+5 Dexterity Vest", 0, 20)
+        ]
         # expected item set output
-        expected_items = []
+        expected = [
+            {'sell_in': 9, 'quality': 19},
+            {'sell_in': -1, 'quality': 18},
+        ]
 
         gilded_rose = GildedRose(items)
         gilded_rose.update_quality()
-        self.assertEquals(items, expected_items)
+        for index, expectation in enumerate(expected):
+            item = items[index]
+            self.assertEqual(item.quality, expectation['quality'])
+            self.assertEqual(item.sell_in, expectation['sell_in'])
 
         
 if __name__ == '__main__':
