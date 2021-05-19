@@ -22,6 +22,12 @@ class GildedRoseTest(unittest.TestCase):
         for i in range(len(items)):
             self.assertEquals(expected_items[i].name, items[i].name)
 
+    def test_expiration_and_quality_drop_for_normal(self):
+        pass
+
+    def test_quality_never_becomes_negative(self):
+        pass
+
     def test_quality_drops_twice_as_fast_for_expired_items(self):
         # set of items tested
         items = [
@@ -40,6 +46,27 @@ class GildedRoseTest(unittest.TestCase):
             item = items[index]
             self.assertEqual(item.quality, expectation['quality'])
             self.assertEqual(item.sell_in, expectation['sell_in'])
+
+    def test_aged_brie_increases_quality_as_time_passes(self):
+        pass
+
+    def test_quality_is_never_above_50(self):
+        pass
+
+    def test_sulfuras_never_decreases_in_quality(self):
+        pass
+
+    def test_backstage_passes_increase_by_2_for_10_days_to_event(self):
+        pass
+
+    def test_backstage_passes_increase_by_3_for_5_days_to_event(self):
+        pass
+
+    def test_backstage_passes_to_zero_when_expired(self):
+        pass
+
+    def test_conjured_items_decrease_twice_as_fast_as_normal(self):
+        pass
 
         
 if __name__ == '__main__':
