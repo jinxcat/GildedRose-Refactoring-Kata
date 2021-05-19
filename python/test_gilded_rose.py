@@ -42,8 +42,25 @@ class GildedRoseTest(unittest.TestCase):
             self.assertEqual(item.sell_in, expectation['sell_in'])
 
     def test_quality_never_becomes_negative(self):
-        self.skipTest("not implemented yet")
-        pass
+        # set of items tested
+        items = [
+            Item("+5 Dexterity Vest", 2, 1),
+            Item("+5 Dexterity Vest", 1, 0),
+            Item("+5 Dexterity Vest", -5, 0)
+        ]
+        # expected item set output
+        expected = [
+            {'sell_in': 1, 'quality': 0},
+            {'sell_in': 0, 'quality': 0},
+            {'sell_in': -6, 'quality': 0},
+        ]
+
+        gilded_rose = GildedRose(items)
+        gilded_rose.update_quality()
+        for index, expectation in enumerate(expected):
+            item = items[index]
+            self.assertEqual(item.quality, expectation['quality'])
+            self.assertEqual(item.sell_in, expectation['sell_in'])
 
     def test_quality_drops_twice_as_fast_for_expired_items(self):
         # set of items tested
