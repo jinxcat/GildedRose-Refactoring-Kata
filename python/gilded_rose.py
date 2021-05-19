@@ -39,6 +39,7 @@ class GildedRose(object):
 
 class Item:
     def __init__(self, name, sell_in, quality):
+        ## TODO: verify name is str and quality is int
         self.name = name
         self.sell_in = sell_in
         self.quality = quality
