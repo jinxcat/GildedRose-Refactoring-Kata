@@ -82,8 +82,23 @@ class GildedRoseTest(unittest.TestCase):
             self.assertEqual(item.sell_in, expectation['sell_in'])
 
     def test_aged_brie_increases_quality_as_time_passes(self):
-        self.skipTest("not implemented yet")
-        pass
+        # set of items tested
+        items = [
+            Item("Aged Brie", 5, 10),
+            Item("Aged Brie", 0, 10)
+        ]
+        # expected item set output
+        expected = [
+            {'sell_in': 4, 'quality': 11},
+            {'sell_in': -1, 'quality': 12},
+        ]
+
+        gilded_rose = GildedRose(items)
+        gilded_rose.update_quality()
+        for index, expectation in enumerate(expected):
+            item = items[index]
+            self.assertEqual(item.quality, expectation['quality'])
+            self.assertEqual(item.sell_in, expectation['sell_in'])
 
     def test_quality_is_never_above_50(self):
         self.skipTest("not implemented yet")
