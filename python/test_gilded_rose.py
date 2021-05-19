@@ -204,8 +204,31 @@ class GildedRoseTest(unittest.TestCase):
             self.assertEqual(item.sell_in, expectation['sell_in'])
 
     def test_conjured_items_decrease_twice_as_fast_as_normal(self):
-        self.skipTest("not implemented yet")
-        pass
+        # set of items tested
+        items = [
+            Item(name="Mana Cake", sell_in=10, quality=20),
+            Item(name="Conjured Mana Cake", sell_in=10, quality=20),
+            Item(name="Conjured Mana Cake", sell_in=1, quality=20),
+            Item(name="Conjured Mana Cake", sell_in=0, quality=20),
+            Item(name="Conjured Mana Cake", sell_in=-5, quality=20),
+            Item(name="Conjured Mana Cake", sell_in=-5, quality=-10),
+        ]
+        # expected item set output
+        expected = [
+            {'sell_in': 9, 'quality': 19},
+            {'sell_in': 9, 'quality': 18},
+            {'sell_in': 0, 'quality': 18},
+            {'sell_in': -1, 'quality': 18},
+            {'sell_in': -6, 'quality': 18},
+            {'sell_in': -6, 'quality': -12},
+        ]
+
+        gilded_rose = GildedRose(items)
+        gilded_rose.update_quality()
+        for index, expectation in enumerate(expected):
+            item = items[index]
+            self.assertEqual(item.quality, expectation['quality'])
+            self.assertEqual(item.sell_in, expectation['sell_in'])
 
         
 if __name__ == '__main__':
