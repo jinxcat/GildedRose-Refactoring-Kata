@@ -26,7 +26,7 @@ class GildedRoseTest(unittest.TestCase):
         # set of items tested
         items = [
             Item("+5 Dexterity Vest", 10, 20),
-            Item("+5 Dexterity Vest", 5, 10)
+            Item("+5 Dexterity Vest", 5, 10),
         ]
         # expected item set output
         expected = [
@@ -46,7 +46,7 @@ class GildedRoseTest(unittest.TestCase):
         items = [
             Item("+5 Dexterity Vest", 2, 1),
             Item("+5 Dexterity Vest", 1, 0),
-            Item("+5 Dexterity Vest", -5, 0)
+            Item("+5 Dexterity Vest", -5, 0),
         ]
         # expected item set output
         expected = [
@@ -66,7 +66,7 @@ class GildedRoseTest(unittest.TestCase):
         # set of items tested
         items = [
             Item("+5 Dexterity Vest", 10, 20),
-            Item("+5 Dexterity Vest", 0, 20)
+            Item("+5 Dexterity Vest", 0, 20),
         ]
         # expected item set output
         expected = [
@@ -85,7 +85,7 @@ class GildedRoseTest(unittest.TestCase):
         # set of items tested
         items = [
             Item("Aged Brie", 5, 10),
-            Item("Aged Brie", 0, 10)
+            Item("Aged Brie", 0, 10),
         ]
         # expected item set output
         expected = [
@@ -101,8 +101,25 @@ class GildedRoseTest(unittest.TestCase):
             self.assertEqual(item.sell_in, expectation['sell_in'])
 
     def test_quality_is_never_above_50(self):
-        self.skipTest("not implemented yet")
-        pass
+        # set of items tested
+        items = [
+            Item("Aged Brie", 5, 50),
+            Item("Aged Brie", 0, 49),
+            Item("Aged Brie", -9, 50),
+        ]
+        # expected item set output
+        expected = [
+            {'sell_in': 4, 'quality': 50},
+            {'sell_in': -1, 'quality': 50},
+            {'sell_in': -10, 'quality': 50},
+        ]
+
+        gilded_rose = GildedRose(items)
+        gilded_rose.update_quality()
+        for index, expectation in enumerate(expected):
+            item = items[index]
+            self.assertEqual(item.quality, expectation['quality'])
+            self.assertEqual(item.sell_in, expectation['sell_in'])
 
     def test_sulfuras_never_decreases_in_quality(self):
         self.skipTest("not implemented yet")
