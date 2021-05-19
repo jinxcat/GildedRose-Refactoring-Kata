@@ -10,7 +10,8 @@ class GildedRose(object):
             if item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert":
                 if item.quality > 0:
                     if item.name != "Sulfuras, Hand of Ragnaros":
-                        item.quality = item.quality - 1
+                        #item.quality = item.quality - 1
+                        item.decrease_quality()
             else:
                 if item.quality < 50:
                     item.quality = item.quality + 1
@@ -28,7 +29,7 @@ class GildedRose(object):
                     if item.name != "Backstage passes to a TAFKAL80ETC concert":
                         if item.quality > 0:
                             if item.name != "Sulfuras, Hand of Ragnaros":
-                                item.quality = item.quality - 1
+                                item.decrease_quality()
                     else:
                         item.quality = item.quality - item.quality
                 else:
@@ -41,6 +42,9 @@ class Item:
         self.name = name
         self.sell_in = sell_in
         self.quality = quality
+
+    def decrease_quality(self, by_value=1):
+        self.quality = self.quality - 1
 
     def __repr__(self):
         return "%s, %s, %s" % (self.name, self.sell_in, self.quality)
