@@ -122,8 +122,25 @@ class GildedRoseTest(unittest.TestCase):
             self.assertEqual(item.sell_in, expectation['sell_in'])
 
     def test_sulfuras_never_decreases_in_quality(self):
-        self.skipTest("not implemented yet")
-        pass
+        # set of items tested
+        items = [
+            Item(name="Sulfuras, Hand of Ragnaros", sell_in=10, quality=80),
+            Item(name="Sulfuras, Hand of Ragnaros", sell_in=0, quality=80),
+            Item(name="Sulfuras, Hand of Ragnaros", sell_in=-1, quality=80),
+        ]
+        # expected item set output
+        expected = [
+            {'sell_in': 10, 'quality': 80},
+            {'sell_in': 0, 'quality': 80},
+            {'sell_in': -1, 'quality': 80},
+        ]
+
+        gilded_rose = GildedRose(items)
+        gilded_rose.update_quality()
+        for index, expectation in enumerate(expected):
+            item = items[index]
+            self.assertEqual(item.quality, expectation['quality'])
+            self.assertEqual(item.sell_in, expectation['sell_in'])
 
     def test_backstage_passes_increase_by_2_for_10_days_to_event(self):
         self.skipTest("not implemented yet")
